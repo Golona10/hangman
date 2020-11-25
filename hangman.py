@@ -5,12 +5,12 @@ import random
 from words import word_list
 
 def get_words():
-    word = random.choice()
+    word = random.choice(word_list)
     return word.upper()
 
 
 def play(word):
-    word_completion = "__" * len(word)
+    word_completion = " _ " * len(word)
     guessed = False
     guessed_letters = []
     guessed_words = []
@@ -21,7 +21,7 @@ def play(word):
     print("\n")
     while not guessed and tries > 0:
         guess = input("please guess letter or word: ").upper()
-        if len(guess) == 1 and giess.isalpha():
+        if len(guess) == 1 and guess.isalpha():
             if guess in guessed_letters:
                 print("You already guessed the letter", guess)
             elif guess not in word:
@@ -29,10 +29,10 @@ def play(word):
                 tries -= 1
                 guessed_letters.append(guess)
             else:
-                print("Good job,", guess "is the word!")
+                print("Good job,", guess, "is the word!")
                 guessed_letters.append(guess)
                 word_as_list = list(word_completion)
-                indices = [i for i, letter in enumerate(word if letter == guess)]
+                indices = [i for i, letter in enumerate(word) if letter == guess]
                 for index in indices:
                     word_as_list[index] = guess
                 word_completion = "".join(word_as_list)
@@ -59,8 +59,8 @@ def play(word):
         print("Sorry, you ran out of tries. the word was " + word + ". Maybe next time!")
 
 
- def display_hangman(tries):
-     stages = [  """
+def display_hangman(tries):
+    stages = [  """
                     -------
                     |     |
                     |     O
@@ -122,15 +122,32 @@ def play(word):
                     |
                     |
                     -
+                """,
                 """
+                    |
+                    |
+                    |
+                    |
+                    |
+                    -
+                """,
+                """
+
+
+
+
+
+                    -
+                """    
      ]
-     return stages[tries]
+    return stages[tries]
+
 
 def main():
-    word = get_word()
+    word = get_words()
     play(word)
     while input("Do you want rematch ? (Y/N) ").upper() == "Y":
-        word = get_word()
+        word = get_words()
         play(word)
 
 
