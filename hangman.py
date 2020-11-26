@@ -1,6 +1,6 @@
 # This is the main file to start the game
 # You may add any additional modules and other files you wish
-
+import yaml
 import random
 from words import word_list
 
@@ -15,6 +15,8 @@ def play(word):
     guessed_letters = []
     guessed_words = []
     lives = 8
+    with open('inscription.yaml', 'r') as saved_file:
+        print(yaml.load(saved_file))
     print("Let's take a journey with Hangman!")
     print(hangman_stages(lives)) 
     print(word_completeness)
@@ -144,6 +146,7 @@ def hangman_stages(lives):
     return stages[lives]
 
 
+
 def main():
     word = get_words()
     play(word)
@@ -156,5 +159,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-             
-
